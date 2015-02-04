@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>#微信话题墙#</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="static/dist/app/topic-open.css">
+</head>
+<body>
+<img style="position:absolute;left:-999px;top:-999px" src="static/logo.jpg">
+<div class="container">
+  <h1>#微信话题墙#</h1>
+  <form id="form_open">
+    <textarea rows="3" name="title" placeholder="话题"></textarea>
+    <textarea rows="4" name="comment" placeholder="是否来个首发评论"></textarea>
+    <button type="submit">创建话题</button>
+  </form>
+  <footer>&copy; 2015 <a href="./">微信话题墙</a></footer>
+</div>
+<script src="static/dist/jquery.min.js"></script>
+<script src="static/dist/jquery.serializejson.min.js"></script>
+<script src="static/dist/lodash.min.js"></script>
+<script src="static/dist/app/db.js"></script>
+<script src="static/dist/app/topic-open.js"></script>
+</body>
+</html>

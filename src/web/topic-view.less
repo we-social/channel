@@ -1,0 +1,92 @@
+@import "common";
+
+////
+// http://v3.bootcss.com/css/#forms
+form {
+  margin: 0 4% 1.2em;
+}
+
+textarea {
+  display: table-cell;
+  padding: 6px 12px;
+  font-size: 140%;
+}
+
+.input-group {
+  display: table;
+  position: relative;
+  border-collapse: separate;
+  box-shadow: 0 2px 5px rgba(0,0,0,.2);
+  border-radius: 4px;
+  >textarea {
+    position: relative;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    float: left;
+  }
+  >span {
+    position: relative;
+    vertical-align: middle;
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    font-size: 0;
+    >button {
+      box-sizing: content-box;
+      height: 100%;
+      padding: 0 1em;
+      margin-left: -1px;
+      position: relative;
+    }
+  }
+}
+
+ul {
+  position: relative;
+  padding: 0 4%;
+  >li {
+    position: relative;
+    margin-top: 0.8em;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+li {
+  display: table;
+  >div {
+    display: table-cell;
+  }
+}
+label {
+  min-width: 2em;
+  padding-right: 1em;
+  text-align: right;
+  font-weight: bold;
+}
+p {
+  //white-space: pre;
+  position: relative;
+  background-color: @white;
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.2);
+  &:before {
+    position: absolute;
+    top: 18px;
+    width: 0;
+    height: 0;
+    content: '';
+    border-style: solid;
+    border-width: 9px;
+    left: -18px;
+    border-color: transparent @white transparent transparent;
+  }
+}
+
+aside {
+  font-weight: bold;
+  text-align: center;
+}
