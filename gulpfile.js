@@ -18,8 +18,8 @@ gulp.task('external', ['misc'])
 
 gulp.task('less', function () {
   gulp.src([
-    'src/web/topic-open.less',
-    'src/web/topic-view.less'
+    'src/web/channel-open.less',
+    'src/web/channel-view.less'
     ])
     .pipe(plumber())
     .pipe(less())

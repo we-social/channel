@@ -1,34 +1,38 @@
 var uuid = require('node-uuid').v4
 var bodyParser = require('body-parser')
 var db = require('./db')
-var dbTopics = db.dbTopics
+var dbChannels = db.dbChannels
 var dbComments = db.dbComments
 var tss = require('./lib/tss')
 
 module.exports = function (app) {
 
-  app.use('/api', bodyParser.urlencoded({
-    extended: true
-  }))
+  app.use('/api', bodyParser.urlencoded({ extended: true }))
 
-  app.post('/api/topics/:key/comments', verify, function (req, res, next) {
-    var topic = dbTopics.find({
+  app.post('/api/channels/:key/comments', function (req, res, next) {
+    var channel = dbChannels.find({
       key: req.params.key
     }).value()
-    if (!topic || topic._del) {
-      return next(new Error(
-        'topic not found with key: ' + req.params.key
-      ))
+    if (!channel || channel._del) {
+      return res.status(404).send({
+        error: 'channel not found with key: ' + req.params.key
+      })
+    }
+    var text = req.body.text.slice(0, 2000)
+    if (text.length < 1) {
+      return res.status(400).send({
+        error: 'empty comment text'
+      })
     }
     var followed = dbComments.filter({
-      topic_id: topic.id
+      channel_id: channel.id
     }).last().value()
     var nextFloor = followed ? followed.floor + 1 : 1
     var comment = {
       id: getNextId(dbComments),
       floor: nextFloor,
-      topic_id: topic.id,
-      text: req.body.text,
+      channel_id: channel.id,
+      text: text,
       ip: req.ip,
       timestamp: tss()
     }
@@ -37,39 +41,31 @@ module.exports = function (app) {
     res.send({ floor: comment.floor })
   })
 
-  app.post('/api/topics', verify, function (req, res) {
-    var topic = {
-      id: getNextId(dbTopics),
-      key: uuid(),
-      title: req.body.title,
-      ip: req.ip,
-      timestamp: tss()
+  app.post('/api/channels', function (req, res) {
+    var title = req.body.title.slice(0, 100)
+    if (title.length < 1) {
+      return res.status(400).send({
+        error: 'empty channel title'
+      })
     }
-    dbTopics.push(topic)
-    var ret = { key: topic.key }
-    
-    if (req.body.comment) {
-      var comment = {
-        id: getNextId(dbComments),
-        floor: 1,
-        topic_id: topic.id,
-        text: req.body.comment,
+    var channel = dbChannels.find({ title: title }).value()
+    if (!channel) {
+      channel = {
+        id: getNextId(dbChannels),
+        key: uuid(),
+        title: title,
         ip: req.ip,
         timestamp: tss()
       }
-      dbComments.push(comment)
-      ret.comment_id = comment.id
+      dbChannels.push(channel)
+      db.save()
     }
-    db.save()
-    res.send(ret)
+    res.send({ key: channel.key })
   })
 
 }
 
 
-function verify(req, res, next) {
-  next()
-}
 function getNextId(list) {
   var last = list.last().value()
   return last ? last.id + 1 : 1

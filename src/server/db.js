@@ -6,6 +6,4 @@ var db = module.exports = low(config.dbFile, {
 })
 
 db.dbComments = db('comments')
-db.dbTopics = db('topics')
-db.dbJsApiTicket = db('jsapi_ticket')
-db.dbAccessToken = db('access_token')
+db.dbChannels = db('channels')

@@ -1,9 +1,8 @@
 {
-  "name": "wxtopic",
+  "name": "channel",
   "version": "0.0.1",
-  "description": "微信话题墙",
+  "description": "在线云频道",
   "private": true,
-  "license": "MIT",
   "main": "src/server",
   "scripts": {
     "start": "node ."
@@ -14,7 +13,7 @@
     "express-handlebars": "^1.1.0",
     "hbs": "^2.8.0",
     "jade": "^1.9.0",
-    "jssha": "^1.5.0",
+    "lodash": "^3.1.0",
     "lowdb": "^0.6.1",
     "node-uuid": "^1.4.2",
     "optimist": "^0.6.1",

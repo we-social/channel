@@ -8,19 +8,23 @@ $(function initPage() {
     if (submitted) return alert('稍安勿躁')
     var form = $form_open.serializeJSON()
     if (!form['title']) return
-    $.post('api/topics', form, function (d) {
+    $.post('api/channels', form, function (d) {
       if (typeof d !== 'object' || !d.key) {
-        return alert('创建失败，为毛？')
+        return alert('进入失败，为毛？')
       }
       if (form['comment']) {
         dbMyComments.push({
           floor: 1,
-          topic_key: d.key
+          channel_key: d.key
         }).save()
       }
       submitted = true
-      //alert('创建成功，key：' + d.key)
-      location.href = 'topics/' + d.key
+      $form_open[0].reset()
+      //alert('进入成功，key：' + d.key)
+      location.href = 'channels/' + d.key
     })
+  })
+  $form_open.on('keydown', function(e) {
+    if (e.keyCode === 13) $form_open.submit()
   })
 })

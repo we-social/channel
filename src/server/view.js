@@ -1,10 +1,10 @@
 var path = require('path')
 //var jade = require('jade')
 var exphbs = require('express-handlebars')
+var _ = require('lodash')
 var config = require('../../config')
-var wx = require('./wx')
 var db = require('./db')
-var dbTopics = db.dbTopics
+var dbChannels = db.dbChannels
 var dbComments = db.dbComments
 
 module.exports = function (app) {
@@ -14,39 +14,33 @@ module.exports = function (app) {
   app.set('views', path.resolve(__dirname, '../web'))
 
   app.get('/', addPathSlash, function (req, res) {
-    //res.redirect(prefixUrl('/topics'))
+    //res.redirect(prefixUrl('/channels'))
     res.redirect('open')
   })
-  //app.get('/topics', function (req, res) {
-  //  res.send('Top Topics')
+  //app.get('/channels', function (req, res) {
+  //  res.send('Top Channels')
   //})
 
-  app.get('/wxtest', dropPathSlash, function (req, res, next) {
-    wx.getJsApiSign(req, function (e, d) {
-      if (e) return next(e)
-      res.render('wxtest.hbs', { wxSign: d })
-    })
-  })
-
   app.get('/open', dropPathSlash, function (req, res) {
-    res.render('topic-open.hbs')
+    res.render('channel-open.hbs')
   })
 
-  app.get('/topics/:key', dropPathSlash, function (req, res, next) {
-    var topic = dbTopics.find({
+  app.get('/channels/:key', dropPathSlash, function (req, res, next) {
+    var channel = dbChannels.find({
       key: req.params.key
     }).value()
-    if (!topic) {
-      return next(new Error(
-        'topic not found with key: ' + req.params.key
-      ))
+    if (!channel) {
+      return res.redirect('../open')
     }
     var comments = dbComments.filter({
-      topic_id: topic.id
+      channel_id: channel.id
     }).value().reverse()
-    res.render('topic-view.hbs', {
+    res.render('channel-view.hbs', {
       comments: comments,
-      topic: topic
+      channel: channel,
+      channel_json: JSON.stringify(
+        _.pick(channel, ['key', 'title'])
+      )
     })
   })
 }

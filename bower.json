@@ -1,5 +1,5 @@
 {
-  "name": "wxtopic",
+  "name": "channel",
   "private": true,
   "dependencies": {
     "lodash": "~2.4.1",
