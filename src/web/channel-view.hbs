@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="../">
+  <meta charset="utf-8">
+  <title>我正在频道 ##{{channel.title}}##</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <link rel="stylesheet" href="static/dist/app/channel-view.css">
+</head>
+<body>
+<img style="position:absolute;left:-999px;top:-999px" src="static/logo.jpg">
+<div class="container">
+  <h1>##{{channel.title}}##</h1>
+  <form id="form_comment">
+    <div class="input-group">
+      <textarea rows="2" name="text" placeholder="说些什么"></textarea>
+      <span>
+        <button type="submit">发送</button>
+      </span>
+    </div>
+  </form>
+  {{#if comments}}
+  <ul class="comment-list">
+    {{#each comments}}
+    {{#if _del}}{{else}}
+    <li class="comment-item">
+      <div><label>{{floor}}</label></div>
+      <div><p>{{text}}</p></div>
+    </li>
+    {{/if}}
+    {{/each}}
+  </ul>
+  {{else}}
+  <aside>这里啥都没有</aside>
+  {{/if}}
+  <footer>&copy; 2015 <a href="./">在线云频道</a></footer>
+</div>
+<script src="static/dist/jquery.min.js"></script>
+<script src="static/dist/jquery.serializejson.min.js"></script>
+<script src="static/dist/lodash.min.js"></script>
+<script src="static/dist/app/db.js"></script>
+<script>
+  var channel = {{{channel_json}}}
+</script>
+<script src="static/dist/app/channel-view.js"></script>
+</body>
+</html>

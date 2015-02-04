@@ -1,0 +1,9 @@
+{
+  "name": "channel",
+  "private": true,
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "jquery": "~2.1.3",
+    "jquery.serializeJSON": "~2.4.1"
+  }
+}
