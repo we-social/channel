@@ -28,13 +28,13 @@ module.exports = function (app) {
   app.get('/channels/:key', dropPathSlash, function (req, res, next) {
     var channel = dbChannels.find({
       key: req.params.key
-    }).value()
+    })
     if (!channel) {
       return res.redirect('../open')
     }
     var comments = dbComments.filter({
       channel_id: channel.id
-    }).value().reverse()
+    }).reverse()
     res.render('channel-view.hbs', {
       comments: comments,
       channel: channel,

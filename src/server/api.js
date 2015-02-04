@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.post('/api/channels/:key/comments', function (req, res, next) {
     var channel = dbChannels.find({
       key: req.params.key
-    }).value()
+    })
     if (!channel || channel._del) {
       return res.status(404).send({
         error: 'channel not found with key: ' + req.params.key
@@ -24,7 +24,7 @@ module.exports = function (app) {
         error: 'empty comment text'
       })
     }
-    var followed = dbComments.filter({
+    var followed = dbComments.chain().filter({
       channel_id: channel.id
     }).last().value()
     var nextFloor = followed ? followed.floor + 1 : 1
@@ -48,7 +48,7 @@ module.exports = function (app) {
         error: 'empty channel title'
       })
     }
-    var channel = dbChannels.find({ title: title }).value()
+    var channel = dbChannels.find({ title: title })
     if (!channel) {
       channel = {
         id: getNextId(dbChannels),
@@ -67,6 +67,6 @@ module.exports = function (app) {
 
 
 function getNextId(list) {
-  var last = list.last().value()
+  var last = list.last()
   return last ? last.id + 1 : 1
 }
