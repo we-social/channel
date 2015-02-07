@@ -6,11 +6,13 @@ var config = require('../../config')
 var db = require('./db')
 var dbChannels = db.dbChannels
 var dbComments = db.dbComments
+var hbs = exphbs.create()
+var Handlebars = hbs.handlebars
 
 module.exports = function (app) {
   //app.engine('jade', jade.__express)
-  app.engine('handlebars', exphbs())
-  app.set('view engine', 'handlebars')
+  app.engine('hbs', hbs.engine)
+  app.set('view engine', 'hbs')
   app.set('views', path.resolve(__dirname, '../web'))
 
   app.get('/', addPathSlash, function (req, res) {
@@ -22,7 +24,7 @@ module.exports = function (app) {
   //})
 
   app.get('/open', dropPathSlash, function (req, res) {
-    res.render('channel-open.hbs')
+    res.render('channel-open')
   })
 
   app.get('/channels/:key', dropPathSlash, function (req, res, next) {
@@ -35,12 +37,20 @@ module.exports = function (app) {
     var comments = dbComments.filter({
       channel_id: channel.id
     }).reverse()
-    res.render('channel-view.hbs', {
+    res.render('channel-view', {
       comments: comments,
       channel: channel,
       channel_json: JSON.stringify(
         _.pick(channel, ['key', 'title'])
-      )
+      ),
+      helpers: {
+        format: function (text) {
+          var html = Handlebars.Utils.escapeExpression(text)
+          html = html.replace(/[\r\n]+/g, '<br>')
+          html = html.replace(/((https?:)?\/\/[^\s]+)/ig, '<a href="$1">$1</a>')
+          return new Handlebars.SafeString(html)
+        }
+      }
     })
   })
 }

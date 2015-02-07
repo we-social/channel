@@ -41,6 +41,9 @@ $(function initPage() {
     })
   })
   $form_comment.on('keydown', function(e) {
-    if (e.keyCode === 13 && e.ctrlKey) $form_comment.submit()
+    if (e.keyCode === 13 && e.ctrlKey) {
+      e.preventDefault()
+      $form_comment.submit()
+    }
   })
 })

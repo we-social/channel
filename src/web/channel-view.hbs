@@ -25,7 +25,19 @@
     {{#if _del}}{{else}}
     <li class="comment-item">
       <div><label>{{floor}}</label></div>
-      <div><p>{{text}}</p></div>
+      <div>
+        <article>
+          {{#if audio_src}}
+            <audio controls type="audio/mp3"  src="{{audio_src}}"></audio>
+          {{/if}}
+          {{#if image_src}}
+            <img src="{{image_src}}">
+          {{/if}}
+          {{#if text}}
+            <p>{{format text}}</p>
+          {{/if}}
+        </article>
+      </div>
     </li>
     {{/if}}
     {{/each}}

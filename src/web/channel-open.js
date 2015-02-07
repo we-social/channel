@@ -25,6 +25,9 @@ $(function initPage() {
     })
   })
   $form_open.on('keydown', function(e) {
-    if (e.keyCode === 13) $form_open.submit()
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      $form_open.submit()
+    }
   })
 })

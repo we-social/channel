@@ -58,6 +58,7 @@ li {
   display: table;
   >div {
     display: table-cell;
+    vertical-align: middle;
   }
 }
 label {
@@ -66,16 +67,19 @@ label {
   text-align: right;
   font-weight: bold;
 }
-p {
+article {
   //white-space: pre;
   position: relative;
   background-color: @white;
-  padding: 1em;
+  padding: .5em 1em;
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0,0,0,.2);
   &:before {
     position: absolute;
-    top: 18px;
+    margin-top: -9px;
+    top: 50%;
+    //top: 18px;
+    //bottom: 18px;
     width: 0;
     height: 0;
     content: '';
@@ -83,6 +87,18 @@ p {
     border-width: 9px;
     left: -18px;
     border-color: transparent @white transparent transparent;
+  }
+  >p, >img, >audio {
+    display: block;
+    margin: .5em 0;
+  }
+  >img {
+    width: 100%;
+    max-width: 300px;
+  }
+  >audio {
+    // tested under 320px wide with 4 bits label
+    max-width: 206px;
   }
 }
 

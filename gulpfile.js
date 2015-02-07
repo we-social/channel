@@ -23,7 +23,9 @@ gulp.task('less', function () {
     ])
     .pipe(plumber())
     .pipe(less())
-    .pipe(autoprefixer())
+    .pipe(autoprefixer({
+      browsers: 'Android 4, iOS 6, last 20 versions'
+    }))
     .pipe(gulp.dest('static/dist/app'))
 })
 gulp.task('js', function () {
