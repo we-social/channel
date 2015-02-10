@@ -108,6 +108,15 @@
           */
           var handleResponse = function(loadedFrame, element) {
             var response, responseStr = loadedFrame.contentWindow.document.body.innerHTML;
+
+            ////////
+            try {
+              var $tmp = $(responseStr);
+              responseStr = $tmp.text();
+            } catch(e) {
+              // do nothing
+            }
+
             try {
               //response = $.parseJSON($.trim(responseStr));
               response = JSON.parse(responseStr);
@@ -157,7 +166,11 @@
             });
           }
 
-
+          ////////
+          if (settings.auto_submit)
+          {
+            upload_file();
+          }
 
         });
       }
