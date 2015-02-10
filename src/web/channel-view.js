@@ -55,7 +55,8 @@ $(function initPage() {
     dbMyComments.push({
       floor: d.floor,
       channel_key: channel.key
-    }).save()
+    })
+    dbMyComments.save()
     $form_comment[0].reset()
     //alert('发送成功，楼层：' + d.floor)
     location.reload()

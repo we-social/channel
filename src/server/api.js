@@ -13,7 +13,7 @@ var mediaDir = path.resolve(__dirname, '../../media')
 
 module.exports = function (app) {
 
-  app.use('/api', bodyParser.urlencoded({ extended: true }))
+  app.use('/api', bodyParser.urlencoded({ extended: false }))
   app.use('/api', multer({ limits: maxsize }))
 
   app.post('/api/channels/:key/comments', function (req, res, next) {
@@ -25,9 +25,9 @@ module.exports = function (app) {
         error: 'channel not found with key: ' + req.params.key
       })
     }
-    var text = req.body.text || ''
-    text = text.slice(0, 2000)
-    var media = req.files.media
+    var text = req.body['text'] || ''
+    text = text.trim().slice(0, 2000)
+    var media = req.files['media']
     if (text.length < 1 && !media) {
       return res.status(400).send({
         error: 'empty comment input'
@@ -76,8 +76,8 @@ module.exports = function (app) {
   })
 
   app.post('/api/channels', function (req, res) {
-    var title = req.body.title || ''
-    title = title.slice(0, 100)
+    var title = req.body['title'] || ''
+    title = title.trim().slice(0, 100)
     if (title.length < 1) {
       return res.status(400).send({
         error: 'empty channel title'
