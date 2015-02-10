@@ -12,6 +12,7 @@
 <div class="container">
   <h1>##{{channel.title}}##</h1>
   <form id="form_comment">
+    <input type="file" name="media">
     <div class="input-group">
       <textarea rows="2" name="text" placeholder="说些什么"></textarea>
       <span>
@@ -25,7 +26,19 @@
     {{#if _del}}{{else}}
     <li class="comment-item">
       <div><label>{{floor}}</label></div>
-      <div><p>{{text}}</p></div>
+      <div>
+        <article>
+          {{#if audio_src}}
+            <audio controls type="{{audio_mime}}" src="{{audio_src}}"></audio>
+          {{/if}}
+          {{#if image_src}}
+            <img src="{{image_src}}">
+          {{/if}}
+          {{#if text}}
+            <p>{{format text}}</p>
+          {{/if}}
+        </article>
+      </div>
     </li>
     {{/if}}
     {{/each}}
@@ -38,10 +51,12 @@
 <script src="static/dist/jquery.min.js"></script>
 <script src="static/dist/jquery.serializejson.min.js"></script>
 <script src="static/dist/lodash.min.js"></script>
+<script src="static/dist/app/jQuery-AjaxFileUpload.js"></script>
 <script src="static/dist/app/db.js"></script>
 <script>
   var channel = {{{channel_json}}}
 </script>
 <script src="static/dist/app/channel-view.js"></script>
+{{{stats_html}}}
 </body>
 </html>

@@ -1,5 +1,5 @@
 $(function initPage() {
-  var dbMyComments = db('my_comments[]')
+  var dbMyChannels = db('my_channels[]')
   var $form_open = $('#form_open')
   var submitted = false
 
@@ -8,23 +8,26 @@ $(function initPage() {
     if (submitted) return alert('稍安勿躁')
     var form = $form_open.serializeJSON()
     if (!form['title']) return
+    submitted = true
     $.post('api/channels', form, function (d) {
       if (typeof d !== 'object' || !d.key) {
+        submitted = false
         return alert('进入失败，为毛？')
       }
-      if (form['comment']) {
-        dbMyComments.push({
-          floor: 1,
-          channel_key: d.key
-        }).save()
-      }
-      submitted = true
+      dbMyChannels.push({
+        title: form['title'],
+        key: d.key
+      })
+      dbMyChannels.save()
       $form_open[0].reset()
       //alert('进入成功，key：' + d.key)
       location.href = 'channels/' + d.key
     })
   })
   $form_open.on('keydown', function(e) {
-    if (e.keyCode === 13) $form_open.submit()
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      $form_open.submit()
+    }
   })
 })

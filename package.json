@@ -8,16 +8,17 @@
     "start": "node ."
   },
   "dependencies": {
-    "body-parser": "^1.10.1",
-    "express": "^4.10.7",
+    "body-parser": "^1.11.0",
+    "bytes": "^1.0.0",
+    "express": "^4.11.2",
     "express-handlebars": "^1.1.0",
+    "fs-extra": "^0.16.3",
     "hbs": "^2.8.0",
-    "jade": "^1.9.0",
     "lodash": "^3.1.0",
-    "lowdb": "^0.6.1",
+    "lowdb": "^0.7.1",
+    "multer": "^0.1.7",
     "node-uuid": "^1.4.2",
-    "optimist": "^0.6.1",
-    "request": "^2.51.0"
+    "optimist": "^0.6.1"
   },
   "devDependencies": {
     "del": "^1.1.1",

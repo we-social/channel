@@ -6,7 +6,7 @@ var del = require('del')
 
 gulp.task('misc', function () {
   gulp.src([
-    'bower_components/lodash/dist/lodash.min.js',
+    'bower_components/lodash/lodash.min.js',
     'bower_components/jquery/dist/jquery.min.js',
     'bower_components/jquery/dist/jquery.min.map',
     'bower_components/jquery.serializeJSON/jquery.serializejson.min.js'
@@ -23,7 +23,9 @@ gulp.task('less', function () {
     ])
     .pipe(plumber())
     .pipe(less())
-    .pipe(autoprefixer())
+    .pipe(autoprefixer({
+      browsers: 'Android 4, iOS 6, last 20 versions'
+    }))
     .pipe(gulp.dest('static/dist/app'))
 })
 gulp.task('js', function () {
