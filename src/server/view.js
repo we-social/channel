@@ -47,7 +47,7 @@ module.exports = function (app) {
         format: function (text) {
           var html = Handlebars.Utils.escapeExpression(text)
           html = html.replace(/[\r\n]+/g, '<br>')
-          html = html.replace(/((https?:)?\/\/[^\s]+)/ig, '<a href="$1">$1</a>')
+          html = html.replace(/(https?:\/\/[^\s]+)/ig, '<a href="$1">$1</a>')
           return new Handlebars.SafeString(html)
         }
       }
