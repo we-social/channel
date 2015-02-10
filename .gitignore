@@ -4,6 +4,6 @@
 node_modules
 bower_components
 dist
-config.js
+config
 db.json
 media

@@ -1,8 +1,9 @@
 var path = require('path')
+var fs = require('fs')
 //var jade = require('jade')
 var exphbs = require('express-handlebars')
 var _ = require('lodash')
-var config = require('../../config')
+var statsHtml = require('../../config').statsHtml
 var db = require('./db')
 var dbChannels = db.dbChannels
 var dbComments = db.dbComments
@@ -24,7 +25,7 @@ module.exports = function (app) {
   //})
 
   app.get('/open', dropPathSlash, function (req, res) {
-    res.render('channel-open')
+    res.render('channel-open', { stats_html: statsHtml })
   })
 
   app.get('/channels/:key', dropPathSlash, function (req, res, next) {
@@ -38,6 +39,7 @@ module.exports = function (app) {
       channel_id: channel.id
     }).reverse()
     res.render('channel-view', {
+      stats_html: statsHtml,
       comments: comments,
       channel: channel,
       channel_json: JSON.stringify(
