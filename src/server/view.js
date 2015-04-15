@@ -3,7 +3,8 @@ var fs = require('fs')
 //var jade = require('jade')
 var exphbs = require('express-handlebars')
 var _ = require('lodash')
-var statsHtml = require('../../config').statsHtml
+var config = require('../../config')
+var wx = require('./wx')
 var db = require('./db')
 var dbChannels = db.dbChannels
 var dbComments = db.dbComments
@@ -24,8 +25,14 @@ module.exports = function (app) {
   //  res.send('Top Channels')
   //})
 
-  app.get('/open', dropPathSlash, function (req, res) {
-    res.render('channel-open', { stats_html: statsHtml })
+  app.get('/wxtest', dropPathSlash, function (req, res, next) {
+    res.__tmpl = 'wxtest.hbs'
+    next()
+  })
+
+  app.get('/open', dropPathSlash, function (req, res, next) {
+    res.__tmpl = 'channel-open'
+    next()
   })
 
   app.get('/channels/:key', dropPathSlash, function (req, res, next) {
@@ -38,8 +45,8 @@ module.exports = function (app) {
     var comments = dbComments.filter({
       channel_id: channel.id
     }).reverse()
-    res.render('channel-view', {
-      stats_html: statsHtml,
+    res.__tmpl = 'channel-view'
+    res.__data = {
       comments: comments,
       channel: channel,
       channel_json: JSON.stringify(
@@ -53,10 +60,23 @@ module.exports = function (app) {
           return new Handlebars.SafeString(html)
         }
       }
+    }
+    next()
+  })
+
+  app.get('*', function(req, res, next) {
+    if (!res.__tmpl) return next()
+    wx.getJsApiSign(req, function (e, d) {
+      if (e) return next(e)
+      var data = _.extend({
+        wxSign: d,
+        url_prefix: config.urlPrefix,
+        stats_html: config.statsHtml
+      }, res.__data)
+      res.render(res.__tmpl, data)
     })
   })
 }
-
 
 function addPathSlash(req, res, next) {
   var pathname = req._parsedUrl.pathname

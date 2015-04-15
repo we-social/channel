@@ -3,7 +3,7 @@
 <head>
   <base href="../">
   <meta charset="utf-8">
-  <title>我正在频道 ##{{channel.title}}##</title>
+  <title>##{{channel.title}}##</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
   <link rel="stylesheet" href="static/dist/app/channel-view.css">
 </head>
@@ -48,11 +48,59 @@
   {{/if}}
   <footer>&copy; 2015 <a href="./">在线云频道</a></footer>
 </div>
+
 <script src="static/dist/jquery.min.js"></script>
 <script src="static/dist/jquery.serializejson.min.js"></script>
 <script src="static/dist/lodash.min.js"></script>
 <script src="static/dist/app/jQuery-AjaxFileUpload.js"></script>
 <script src="static/dist/app/db.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  wx.config({
+    //debug: true,
+    appId: '{{wxSign.appId}}',
+    timestamp: {{wxSign.timestamp}},
+    nonceStr: '{{wxSign.nonceStr}}',
+    signature: '{{wxSign.signature}}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      //'hideMenuItems',
+      //'showMenuItems',
+      //'hideAllNonBaseMenuItem',
+      //'showAllNonBaseMenuItem',
+      //'translateVoice',
+      //'startRecord',
+      //'stopRecord',
+      //'onRecordEnd',
+      //'playVoice',
+      //'pauseVoice',
+      //'stopVoice',
+      //'uploadVoice',
+      //'downloadVoice',
+      //'chooseImage',
+      //'previewImage',
+      //'uploadImage',
+      //'downloadImage',
+      //'getNetworkType',
+      //'openLocation',
+      //'getLocation',
+      //'hideOptionMenu',
+      //'showOptionMenu',
+      'closeWindow',
+      //'scanQRCode',
+      //'chooseWXPay',
+      //'openProductSpecificView',
+      //'addCard',
+      //'chooseCard',
+      //'openCard'
+    ]
+  })
+  var urlPrefix = '{{url_prefix}}'
+</script>
 <script>
   var channel = {{{channel_json}}}
 </script>
