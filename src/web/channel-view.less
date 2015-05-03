@@ -115,8 +115,14 @@ article {
     max-width: 300px;
   }
   >audio {
-    // tested under 320px wide with 4 bits label
+    // note: chrome模拟器320px下，4位数楼层，最大宽度
     max-width: 206px;
+    //transform-origin: left center;
+    transform-origin: left top;
+    margin: .5em 0 .2em;
+    // note: android下scale(.9)，但ipad下.8才能不溢出
+    //transform: scale(.9);
+    transform: scale(.8);
   }
 }
 
