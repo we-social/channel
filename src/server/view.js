@@ -6,8 +6,8 @@ var _ = require('lodash')
 var config = require('../../config')
 var wx = require('./wx')
 var db = require('./db')
-var dbChannels = db.dbChannels
-var dbComments = db.dbComments
+var dbChannels = db('channels')
+var dbComments = db('comments')
 var hbs = exphbs.create()
 var Handlebars = hbs.handlebars
 
