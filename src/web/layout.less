@@ -5,9 +5,9 @@ body {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
 }
 footer {
-  margin: 3em 0 1.4em;
+  margin: 3em 0 2em;
   text-align: center;
-  font-size: 90%;
+  font-size: 110%;
   >a {
     text-decoration: none;
   }
@@ -15,6 +15,10 @@ footer {
 
 a {
   color: @mint-1;
+  // 避免一些浏览器，访问过的链接变紫色
+  &:visited {
+    color: @mint-1;
+  }
 }
 h1 {
   text-align: center;
