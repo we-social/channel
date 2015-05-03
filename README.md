@@ -1,12 +1,15 @@
-# 轻应用：在线云频道
+轻应用：#在线云频道#
+===
 
-复制于 [微信话题墙](https://github.com/fritx/wxtopic)
+- 复制于：[#微信话题墙#](https://github.com/fritx/wxtopic)
+- 在线演示：<http://channel.fritx.me>
+- 相关博文：[跟我一起来升级#在线云频道#（1）](http://fritx.github.io/blog/?2015/05/channel-dev-together-01/)
 
-Demo: <http://channel.fritx.me>
-
-<img width="300" src="pic/截图 2015-02-05 00.07.48.png">
+<img width="200" src="pic/截图 2015-05-03 20.02.19.png">
 &nbsp;&nbsp;
-<img width="300" src="pic/截图 2015-02-04 23.58.16.png">
+<img width="200" src="pic/截图 2015-05-03 20.02.38.png">
+&nbsp;&nbsp;
+<img width="200" src="pic/截图 2015-05-03 20.02.48.png">
 
 ## 项目亮点
 
@@ -24,12 +27,13 @@ Demo: <http://channel.fritx.me>
 
 ## 搭建指南
 
-1. 安装nodejs，安装mongodb并运行
+1. 安装nodejs
 2. 从npm安装gulp, bower
 3. 下载项目，或直接从git克隆
 4. 进入目录，安装npm, bower依赖
-5. 执行gulp构建
-6. 运行实例
+5. 复制一份config，按需修改
+6. 执行gulp构建
+7. 运行实例
 
 ```
 $ npm install -g gulp
@@ -38,6 +42,7 @@ $ git clone git@github.com:fritx/channel.git
 $ cd channel
 $ npm install
 $ bower install
+$ cp -r config-default config
 $ gulp build
 $ node .
 ```
