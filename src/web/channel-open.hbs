@@ -16,10 +16,58 @@
   </form>
   <footer>&copy; 2015 <a href="./">在线云频道</a></footer>
 </div>
+
 <script src="static/dist/jquery.min.js"></script>
 <script src="static/dist/jquery.serializejson.min.js"></script>
 <script src="static/dist/lodash.min.js"></script>
 <script src="static/dist/app/db.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  wx.config({
+    //debug: true,
+    appId: '{{wxSign.appId}}',
+    timestamp: {{wxSign.timestamp}},
+    nonceStr: '{{wxSign.nonceStr}}',
+    signature: '{{wxSign.signature}}',
+    jsApiList: [
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+      //'hideMenuItems',
+      //'showMenuItems',
+      //'hideAllNonBaseMenuItem',
+      //'showAllNonBaseMenuItem',
+      //'translateVoice',
+      //'startRecord',
+      //'stopRecord',
+      //'onRecordEnd',
+      //'playVoice',
+      //'pauseVoice',
+      //'stopVoice',
+      //'uploadVoice',
+      //'downloadVoice',
+      //'chooseImage',
+      //'previewImage',
+      //'uploadImage',
+      //'downloadImage',
+      //'getNetworkType',
+      //'openLocation',
+      //'getLocation',
+      //'hideOptionMenu',
+      //'showOptionMenu',
+      'closeWindow',
+      //'scanQRCode',
+      //'chooseWXPay',
+      //'openProductSpecificView',
+      //'addCard',
+      //'chooseCard',
+      //'openCard'
+    ]
+  })
+  var urlPrefix = '{{url_prefix}}'
+</script>
 <script src="static/dist/app/channel-open.js"></script>
 {{{stats_html}}}
 </body>
