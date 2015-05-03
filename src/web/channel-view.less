@@ -52,7 +52,7 @@ input[type="file"] {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-ul {
+ol {
   position: relative;
   padding: 0 4%;
   >li {
@@ -65,19 +65,26 @@ ul {
 }
 
 li {
+  // 自动收缩，自动偏移的评论气泡效果
   display: table;
   >div {
+    //float: left;
     display: table-cell;
-    vertical-align: middle;
+    //vertical-align: middle; // 居中
+    vertical-align: top; // 偏上2
   }
 }
 label {
-  min-width: 2em;
+  display: block;
+  //min-width: 2em;
+  padding-left: 0.2em;
   padding-right: 1em;
+  padding-top: 16px; // 偏上2
   text-align: right;
   font-weight: bold;
 }
 article {
+  min-height: 53px;
   //white-space: pre;
   position: relative;
   background-color: @white;
@@ -86,17 +93,18 @@ article {
   box-shadow: 0 2px 5px rgba(0,0,0,.2);
   &:before {
     position: absolute;
-    margin-top: -9px;
-    top: 50%;
-    //top: 18px;
-    //bottom: 18px;
+    border-width: 9px;
+    left: -18px;
+    //top: 17px; // 偏上
+    //top: 50%; // 居中
+    //margin-top: -9px; // 居中
+    top: 17px; // 偏上2
     width: 0;
     height: 0;
     content: '';
     border-style: solid;
-    border-width: 9px;
-    left: -18px;
-    border-color: transparent @white transparent transparent;
+    border-color: transparent;
+    border-right-color: @white;
   }
   >p, >img, >audio {
     display: block;

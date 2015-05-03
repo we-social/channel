@@ -21,10 +21,10 @@
     </div>
   </form>
   {{#if comments}}
-  <ul class="comment-list">
+  <ol>
     {{#each comments}}
     {{#if _del}}{{else}}
-    <li class="comment-item">
+    <li>
       <div><label>{{floor}}</label></div>
       <div>
         <article>
@@ -42,7 +42,7 @@
     </li>
     {{/if}}
     {{/each}}
-  </ul>
+  </ol>
   {{else}}
   <aside>这里啥都没有</aside>
   {{/if}}
