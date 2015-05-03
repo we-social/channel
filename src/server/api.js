@@ -8,13 +8,12 @@ var tss = require('./lib/tss')
 var fs = require('fs-extra')
 var path = require('path')
 var bytes = require('bytes')
-var maxsize = bytes('4mb')
 var mediaDir = path.resolve(__dirname, '../../media')
 
 module.exports = function (app) {
 
   app.use('/api', bodyParser.urlencoded({ extended: false }))
-  app.use('/api', multer({ limits: maxsize }))
+  app.use('/api', multer({ limits: bytes('4mb') }))
 
   app.post('/api/channels/:key/comments', function (req, res, next) {
     var channel = dbChannels.find({
@@ -35,11 +34,6 @@ module.exports = function (app) {
     }
     if (media) {
       var mediaType
-      if (media.truncated || media.size > maxsize) {
-        return res.status(400).send({
-          error: 'media size too large'
-        })
-      }
       if (/^image\//i.test(media.mimetype) &&
         /\.?(png|jpe?g|gif)$/i.test(media.extension)) {
         mediaType = 'image'
@@ -49,6 +43,14 @@ module.exports = function (app) {
       } else {
         return res.status(400).send({
           error: 'invalid media type'
+        })
+      }
+      if (media.truncated ||
+        mediaType === 'image' && media.size > bytes('200kb') ||
+        mediaType === 'audio' && media.size > bytes('4mb')
+      ) {
+        return res.status(400).send({
+          error: 'media size too large'
         })
       }
     }
