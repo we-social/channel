@@ -10,6 +10,9 @@ var wx = module.exports = {}
 
 
 wx.getJsApiSign = function (req, cb) {
+  if (!config.wxAppId) {
+    return cb(new Error('no wxAppId'))
+  }
   wx.getJsApiTicket(function (e, d) {
     if (e) return cb(e)
     var sign = wxSign(d.jsapi_ticket, fullUrl(req))

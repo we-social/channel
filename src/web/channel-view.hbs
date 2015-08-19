@@ -56,6 +56,7 @@
 <script src="static/dist/app/db.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
+  {{#if wxSign}}
   wx.config({
     //debug: true,
     appId: '{{wxSign.appId}}',
@@ -99,6 +100,7 @@
       //'openCard'
     ]
   })
+  {{/if}}
   var urlPrefix = '{{url_prefix}}'
 </script>
 <script>

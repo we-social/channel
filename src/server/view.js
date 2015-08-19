@@ -67,7 +67,8 @@ module.exports = function (app) {
   app.get('*', function(req, res, next) {
     if (!res.__tmpl) return next()
     wx.getJsApiSign(req, function (e, d) {
-      if (e) return next(e)
+      //忽略 no wxAppId 的错误
+      //if (e) return next(e) 
       var data = _.extend({
         wxSign: d,
         url_prefix: config.urlPrefix,

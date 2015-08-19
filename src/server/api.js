@@ -104,6 +104,7 @@ module.exports = function (app) {
 
 
 function getNextId(list) {
-  var last = list.last()
+  var last = list.get('length') ?
+    list.last() : null
   return last ? last.id + 1 : 1
 }
