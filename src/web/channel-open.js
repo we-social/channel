@@ -1,30 +1,3 @@
-wx.ready(function() {
-  var messageData = {
-    title: '#在线云频道#',
-    desc: '任意进入，随处粘贴，做信息的同步者',
-    link: location.href,
-    imgUrl: location.origin + urlPrefix + '/static/logo.jpg',
-    trigger: function (res) {
-      //alert('用户点击分享到朋友圈');
-    },
-    success: function (res) {
-      //alert('已分享');
-    },
-    cancel: function (res) {
-      //alert('已取消');
-    },
-    fail: function (res) {
-      //alert(JSON.stringify(res));
-    }
-  }
-  var timelineData = _.clone(messageData)
-  timelineData.title = '我在这里 #在线云频道#'
-  wx.onMenuShareTimeline(timelineData)
-  wx.onMenuShareAppMessage(messageData)
-  wx.onMenuShareQQ(messageData)
-  wx.onMenuShareWeibo(messageData)
-})
-
 $(function initPage() {
   var dbMyChannels = db('my_channels[]')
   var $form_open = $('#form_open')

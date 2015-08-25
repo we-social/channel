@@ -21,9 +21,14 @@
 <script src="static/dist/jquery.serializejson.min.js"></script>
 <script src="static/dist/lodash.min.js"></script>
 <script src="static/dist/app/db.js"></script>
+<script>
+  var urlPrefix = '{{url_prefix}}'
+</script>
+<script src="static/dist/app/channel-open.js"></script>
+
+{{#if wxSign}}
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
-  {{#if wxSign}}
   wx.config({
     //debug: true,
     appId: '{{wxSign.appId}}',
@@ -67,10 +72,35 @@
       //'openCard'
     ]
   })
-  {{/if}}
-  var urlPrefix = '{{url_prefix}}'
+  wx.ready(function() {
+    var messageData = {
+      title: '#在线云频道#',
+      desc: '任意进入，随处粘贴，做信息的同步者',
+      link: location.href,
+      imgUrl: location.origin + urlPrefix + '/static/logo.jpg',
+      trigger: function (res) {
+        //alert('用户点击分享到朋友圈');
+      },
+      success: function (res) {
+        //alert('已分享');
+      },
+      cancel: function (res) {
+        //alert('已取消');
+      },
+      fail: function (res) {
+        //alert(JSON.stringify(res));
+      }
+    }
+    var timelineData = _.clone(messageData)
+    timelineData.title = '我在这里 #在线云频道#'
+    wx.onMenuShareTimeline(timelineData)
+    wx.onMenuShareAppMessage(messageData)
+    wx.onMenuShareQQ(messageData)
+    wx.onMenuShareWeibo(messageData)
+  })
 </script>
-<script src="static/dist/app/channel-open.js"></script>
+{{/if}}
+
 {{{stats_html}}}
 </body>
 </html>
