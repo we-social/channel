@@ -11,7 +11,7 @@
 <img style="position:absolute;left:-999px;top:-999px" src="static/logo.jpg">
 <div class="container">
   <h1>##{{channel.title}}##</h1>
-  <form id="form_comment">
+  <form id="form_comment" onsubmit="return false">
     <input type="file" capture="camera" name="media"/>
     <div class="input-group">
       <textarea rows="2" name="text" placeholder="说些什么，mp3最大4M，图片200K"></textarea>
