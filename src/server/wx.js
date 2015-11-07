@@ -2,8 +2,8 @@ var crypto = require('crypto')
 var request = require('request')
 var config = require('../../config')
 var db = require('./db')
-var dbAccessToken = db('access_token')
-var dbJsApiTicket = db('jsapi_ticket')
+var dbAccessToken = db.dbAccessToken
+var dbJsApiTicket = db.dbJsApiTicket
 var wxSign = require('./lib/wx-sign')
 var tss = require('./lib/tss')
 var wx = module.exports = {}
